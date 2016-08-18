@@ -173,10 +173,7 @@ $minorProblems = $symfonyRequirements->getFailedRecommendations();
                         <?php if (count($minorProblems)): ?>
                             <h2>Recommendations</h2>
                             <p>
-                                <?php if (count($majorProblems)): ?>Additionally, to<?php else {
-    : ?>To<?php endif;
-}
-?> enhance your Symfony experience,
+                                <?php if (count($majorProblems)) { ?>Additionally, to<?php } else { ?>To<?php } ?> enhance your Symfony experience,
                                 it’s recommended that you fix the following:
                             </p>
                             <ol>
