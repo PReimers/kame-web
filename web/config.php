@@ -187,9 +187,9 @@ $minorProblems = $symfonyRequirements->getFailedRecommendations();
 
                         <?php if ($symfonyRequirements->hasPhpIniConfigIssue()): ?>
                             <p id="phpini">*
-                                <?php if ($symfonyRequirements->getPhpIniConfigPath()): ?>
+                                <?php if ($symfonyRequirements->getPhpIniConfigPath()) { ?>
                                     Changes to the <strong>php.ini</strong> file must be done in "<strong><?php echo $symfonyRequirements->getPhpIniConfigPath() ?></strong>".
-                                <?php else { ?>
+                                <?php } else { ?>
                                     To change settings, create a "<strong>php.ini</strong>".
                                 <?php } ?>
                             </p>
