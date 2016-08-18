@@ -175,8 +175,10 @@ $minorProblems = $symfonyRequirements->getFailedRecommendations();
                             <p>
                                 <?php if (count($majorProblems)) {
     ?>Additionally, to<?php
+
 } else {
     ?>To<?php
+
 } ?> enhance your Symfony experience,
                                 it’s recommended that you fix the following:
                             </p>
@@ -195,10 +197,12 @@ $minorProblems = $symfonyRequirements->getFailedRecommendations();
     ?>
                                     Changes to the <strong>php.ini</strong> file must be done in "<strong><?php echo $symfonyRequirements->getPhpIniConfigPath() ?></strong>".
                                 <?php
+
 } else {
     ?>
                                     To change settings, create a "<strong>php.ini</strong>".
                                 <?php
+
 } ?>
                             </p>
                         <?php endif; ?>
