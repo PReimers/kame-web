@@ -1,21 +1,15 @@
 {
-    "name": "ashura/kuaine.web",
+    "name": "PReimers/kame-web",
+    "description": "Yet another PHP application",
     "license": "proprietary",
     "type": "project",
-    "autoload": {
-        "psr-4": {
-            "": "src/"
-        },
-        "classmap": [
-            "app/AppKernel.php",
-            "app/AppCache.php"
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
+    "authors": [
+        {
+            "name": "Patrick Reimers",
+            "email": "patrick@reimers.me",
+            "role": "Developer"
         }
-    },
+    ],
     "require": {
         "php": ">=5.5.9",
         "symfony/symfony": "3.1.*",
@@ -29,6 +23,20 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "satooshi/php-coveralls": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        },
+        "classmap": [
+            "app/AppKernel.php",
+            "app/AppCache.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
