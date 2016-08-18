@@ -1,0 +1,9 @@
+language: php
+php:
+  - '7.0'
+  - nightly
+
+script: ls -Alah
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
