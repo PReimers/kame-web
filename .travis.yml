@@ -3,7 +3,27 @@ php:
   - '7.0'
   - nightly
 
-script: ls -Alah
+matrix:
+  fast_finish: true
+  allow_failures:
+  - php: nightly
+
+services:
+  - mysql
+
+env:
+  - SYMFONY_VERSION="3.1.*" DB=mysql
+
+before_script:
+  - cp app/config/parameters.yml.dist app/config/parameters.yml
+  - mkdir -p build/logs
+
+install:
+  - mysql -e 'create database `kame`;'
+  - composer install
+
+script:
+  - phpunit -c phpunit.xml.dist
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
