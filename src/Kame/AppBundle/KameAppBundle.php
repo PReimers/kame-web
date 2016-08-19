@@ -4,6 +4,6 @@ namespace Kame\AppBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class AppBundle extends Bundle
+class KameAppBundle extends Bundle
 {
 }

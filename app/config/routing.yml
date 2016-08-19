@@ -1,3 +1,4 @@
-app:
-    resource: "@KameppBundle/Controller"
+kame_backend:
+    resource: "@KameAppBundle/Controller/"
     type:     annotation
+    prefix:   /
