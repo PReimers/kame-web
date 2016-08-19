@@ -32,6 +32,7 @@
     </filter>
 
     <logging>
-        <log type="coverage-clover" target="build/logs/clover.xml"/>
+        <log type="coverage-clover" target="web/build/logs/clover.xml"/>
+        <log type="coverage-html" target="web/build"/>
     </logging>
 </phpunit>

@@ -13,7 +13,7 @@ env:
 
 before_script:
   - cp app/config/parameters.yml.dist app/config/parameters.yml
-  - mkdir -p build/logs
+  - mkdir -p web/build/logs
 
 install:
   - mysql -e 'create database `kame`;'
