@@ -1,4 +1,4 @@
 services:
-#    kame_app.example:
-#        class: Kame\AppBundle\Example
+#    terra_gana_app.example:
+#        class: TerraGana\AppBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]
