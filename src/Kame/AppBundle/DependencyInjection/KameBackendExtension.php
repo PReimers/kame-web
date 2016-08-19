@@ -1,6 +1,6 @@
 <?php
 
-namespace Kame\BackendBundle\DependencyInjection;
+namespace Kame\AppBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-class KameBackendExtension extends Extension
+class KameAppExtension extends Extension
 {
     /**
      * {@inheritdoc}
