@@ -8,6 +8,11 @@
             "name": "Patrick Reimers",
             "email": "patrick@reimers.me",
             "role": "Developer"
+        },
+        {
+            "name":  "Dominik Müller",
+            "email": "ashura@aimei.ch",
+            "role":  "Developer"
         }
     ],
     "require": {
