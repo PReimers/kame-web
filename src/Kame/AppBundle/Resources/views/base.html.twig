@@ -1,13 +1,25 @@
-<!DOCTYPE html>
-<html>
+{% spaceless %}
+    <!DOCTYPE html>
+    <html>
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% include 'KameAppBundle::meta.html.twig' %}
+        <title>{% block title %}Kame{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+        {% block predict %}
+            {% if not is_granted('ROLE_USER') %}
+                {#<link rel="preconnect" href="{{ path('login') }}">#}
+            {% endif %}
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    {% block body %}{% endblock %}
+    {% block javascripts %}{% endblock %}
     </body>
-</html>
+    </html>
+{% endspaceless %}
