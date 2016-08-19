@@ -11,10 +11,9 @@ namespace TerraGana\AppBundle\Controller\Backend;
 use FOS\RestBundle\Controller\Annotations\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class BackendController
+ * Class BackendController.
  *
  * @Route("/backend")
  */
