@@ -7,10 +7,9 @@ class AppKernel extends Kernel
 {
     public function __construct($environment, $debug)
     {
-        try{
+        try {
             date_default_timezone_get();
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             date_default_timezone_set('UTC');
         }
         parent::__construct($environment, $debug);
