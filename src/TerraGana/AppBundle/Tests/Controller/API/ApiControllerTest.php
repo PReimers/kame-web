@@ -10,9 +10,9 @@ class ApiControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/api/users');
+        $client->request('GET', '/api/users');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Just do it', $crawler->text());
+        $this->assertContains('{"abc123":{"name":"user1"},"def456":{"name":"user2"}}', $client->getResponse()->getContent());
     }
 }

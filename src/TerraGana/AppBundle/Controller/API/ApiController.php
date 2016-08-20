@@ -41,9 +41,6 @@ class ApiController extends FOSRestController
             'def456' => [
                 'name' => 'user2',
             ],
-            '123abc' => [
-                'name' => 'user3',
-            ],
         ]);
     }
 }
