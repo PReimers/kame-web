@@ -1,0 +1,11 @@
+{# If AJAX: Dont send full site #}
+{% extends app.request.xmlHttpRequest
+? 'TerraGanaAppBundle::ajax-base.html.twig'
+: 'TerraGanaAppBundle::base.html.twig'%}
+
+{% block body %}
+    Page not found
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}

@@ -9,6 +9,7 @@
 namespace TerraGana\AppBundle\Controller\Backend;
 
 use FOS\RestBundle\Controller\Annotations\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -21,6 +22,8 @@ class BackendController extends Controller
 {
     /**
      * @Route("/", name="backend_default")
+     *
+     * @Method("GET")
      *
      * @return Response
      */

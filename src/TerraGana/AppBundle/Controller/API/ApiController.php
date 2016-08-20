@@ -10,7 +10,9 @@ namespace TerraGana\AppBundle\Controller\API;
 
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Controller\FOSRestController;
-use Symfony\Component\HttpFoundation\Response;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class ApiController.
@@ -20,12 +22,28 @@ use Symfony\Component\HttpFoundation\Response;
 class ApiController extends FOSRestController
 {
     /**
+     * Get a List of Users.
+     *
+     * @ApiDoc(resource=true,description="Get all Users")
+     *
      * @Route("/users", name="api_get_users")
      *
-     * @return Response
+     * @Method("GET")
+     *
+     * @return JsonResponse
      */
     public function getUsersAction()
     {
-        return new Response('Just do it', 200);
+        return new JsonResponse([
+            'abc123' => [
+                'name' => 'user1',
+            ],
+            'def456' => [
+                'name' => 'user2',
+            ],
+            '123abc' => [
+                'name' => 'user3',
+            ],
+        ]);
     }
 }
