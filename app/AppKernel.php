@@ -5,6 +5,16 @@ use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
 {
+    public function __construct($environment, $debug)
+    {
+        try {
+            date_default_timezone_get();
+        } catch (Exception $e) {
+            date_default_timezone_set('UTC');
+        }
+        parent::__construct($environment, $debug);
+    }
+
     public function registerBundles()
     {
         $bundles = [
