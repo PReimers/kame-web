@@ -30,6 +30,7 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new \TerraGana\AppBundle\TerraGanaAppBundle(),
+            new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -74,3 +74,14 @@ fos_rest:
     routing_loader:
         default_format: json
         include_format: false
+
+# app/config/config.yml
+doctrine_mongodb:
+    connections:
+        default:
+            server: "%mongodb_server%"
+            options: {}
+    default_database: test_database
+    document_managers:
+        default:
+            auto_mapping: true
