@@ -42,30 +42,30 @@ class ApiControllerTest extends WebTestCase
         $client = static::createClient();
         $id = 0;
 
-        /** Create User */
+        /* Create User */
         $client->request('POST', '/api/user/signIn', [], [], [], '{"email":"test@mail.com","googleId":"123"}');
         $this->assertEquals(Response::HTTP_CREATED, $client->getResponse()->getStatusCode());
         //$this->assertContains("123456789123456789123456789[]123456789", $client->getResponse()->getContent());
         $client_response = $client->getResponse()->getContent();
-        foreach(json_decode($client_response,true) AS $key => $val){
+        foreach (json_decode($client_response, true) as $key => $val) {
             $id = $key;
         }
 
-        /** Sign In (Google-ID) */
+        /* Sign In (Google-ID) */
         $client->request('POST', '/api/user/signIn', [], [], [], '{"email":"test@mail.com","googleId":"123"}');
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertContains($client_response, $client->getResponse()->getContent());
 
-        /** Sign In (User-ID) */
+        /* Sign In (User-ID) */
         $client->request('POST', '/api/user/signIn', [], [], [], '{"email":"test@mail.com","id":"'.$id.'"}');
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertContains($client_response, $client->getResponse()->getContent());
 
-        /** Sign In (failed) */
+        /* Sign In (failed) */
         $client->request('POST', '/api/user/signIn', [], [], [], '{"email":"test@mail.com","googleId":"321"}');
         $this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
 
-        /** Get all Users */
+        /* Get all Users */
         $client->request('GET', '/api/users');
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertContains($client_response, $client->getResponse()->getContent());
@@ -76,19 +76,19 @@ class ApiControllerTest extends WebTestCase
         $client = static::createClient();
         $id = 0;
 
-        /** Sign In */
+        /* Sign In */
         $client->request('POST', '/api/user/signIn', [], [], [], '{"email":"test@mail.com","googleId":"123"}');
-        $this->assertTrue(in_array($client->getResponse()->getStatusCode(),[Response::HTTP_OK, Response::HTTP_CREATED]));
-        foreach(json_decode($client->getResponse()->getContent(),true) AS $key => $val){
+        $this->assertTrue(in_array($client->getResponse()->getStatusCode(), [Response::HTTP_OK, Response::HTTP_CREATED]));
+        foreach (json_decode($client->getResponse()->getContent(), true) as $key => $val) {
             $id = $key;
         }
 
-        /** Delete User */
+        /* Delete User */
         $client->request('DELETE', '/api/user/delete/'.$id);
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
         $this->assertContains('{"message":"User deleted"}', $client->getResponse()->getContent());
 
-        /** Delete User (failed) */
+        /* Delete User (failed) */
         $client->request('DELETE', '/api/user/delete/abc123');
         $this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
         $this->assertContains('{"message":"User not found"}', $client->getResponse()->getContent());
@@ -99,18 +99,18 @@ class ApiControllerTest extends WebTestCase
         $client = static::createClient();
         $id = 0;
 
-        /** Sign In */
+        /* Sign In */
         $client->request('POST', '/api/user/signIn', [], [], [], '{"email":"test@mail.com","googleId":"123"}');
-        $this->assertTrue(in_array($client->getResponse()->getStatusCode(),[Response::HTTP_OK, Response::HTTP_CREATED]));
-        foreach(json_decode($client->getResponse()->getContent(),true) AS $key => $val){
+        $this->assertTrue(in_array($client->getResponse()->getStatusCode(), [Response::HTTP_OK, Response::HTTP_CREATED]));
+        foreach (json_decode($client->getResponse()->getContent(), true) as $key => $val) {
             $id = $key;
         }
 
-        /** Edit User */
+        /* Edit User */
         $client->request('POST', '/api/user/edit/'.$id, [], [], [], '{"email":"test@mail.com","googleId":"123","username":"TestUser"}');
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
 
-        /** Edit User (failed) */
+        /* Edit User (failed) */
         $client->request('POST', '/api/user/edit/abc123', [], [], [], '{"email":"test@mail.com","googleId":"123","username":"TestUser"}');
         $this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
     }

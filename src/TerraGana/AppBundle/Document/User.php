@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: patrick
  * Date: 04.09.16
- * Time: 22:48
+ * Time: 22:48.
  */
 namespace TerraGana\AppBundle\Document;
 
@@ -50,7 +50,7 @@ class User
     protected $deletedAt = null;
 
     /**
-     * Get id
+     * Get id.
      *
      * @return string $id
      */
@@ -60,19 +60,21 @@ class User
     }
 
     /**
-     * Set googleId
+     * Set googleId.
      *
      * @param int $googleId
+     *
      * @return $this
      */
     public function setGoogleId($googleId)
     {
         $this->googleId = $googleId;
+
         return $this;
     }
 
     /**
-     * Get googleId
+     * Get googleId.
      *
      * @return int $googleId
      */
@@ -82,19 +84,21 @@ class User
     }
 
     /**
-     * Set username
+     * Set username.
      *
      * @param string $username
+     *
      * @return $this
      */
     public function setUsername($username)
     {
         $this->username = $username;
+
         return $this;
     }
 
     /**
-     * Get username
+     * Get username.
      *
      * @return string $username
      */
@@ -104,19 +108,21 @@ class User
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
+     *
      * @return $this
      */
     public function setEmail($email)
     {
         $this->email = $email;
+
         return $this;
     }
 
     /**
-     * Get email
+     * Get email.
      *
      * @return string $email
      */
@@ -126,19 +132,21 @@ class User
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param date $createdAt
+     *
      * @return $this
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return date $createdAt
      */
@@ -148,19 +156,21 @@ class User
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param date $updatedAt
+     *
      * @return $this
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
      * @return date $updatedAt
      */
@@ -170,19 +180,21 @@ class User
     }
 
     /**
-     * Set deletedAt
+     * Set deletedAt.
      *
      * @param date $deletedAt
+     *
      * @return $this
      */
     public function setDeletedAt($deletedAt)
     {
         $this->deletedAt = $deletedAt;
+
         return $this;
     }
 
     /**
-     * Get deletedAt
+     * Get deletedAt.
      *
      * @return date $deletedAt
      */
