@@ -8,7 +8,7 @@
  */
 namespace TerraGana\AppBundle\Controller\API;
 
-use \DateTime;
+use DateTime;
 use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
@@ -41,13 +41,13 @@ class ApiController extends FOSRestController
         $users = $dm->getRepository('TerraGanaAppBundle:User')->findAll();
 
         $user_array = [];
-        foreach ($users AS $user){
+        foreach ($users as $user) {
             $user_array[$user->getId()] = [
                 'googleId' => $user->getGoogleId(),
                 'username' => $user->getUsername(),
-                'email' => $user->getEmail(),
-                'created' => $user->getCreatedAt(),
-                'updated' => $user->getUpdatedAt(),
+                'email'    => $user->getEmail(),
+                'created'  => $user->getCreatedAt(),
+                'updated'  => $user->getUpdatedAt(),
             ];
         }
 
@@ -55,7 +55,7 @@ class ApiController extends FOSRestController
     }
 
     /**
-     * Sign in or create user
+     * Sign in or create user.
      *
      * @ApiDoc(section="user",resource=true,description="Sign in",tags={"dev" = "#ff9900"},
      *  requirements={
@@ -74,6 +74,7 @@ class ApiController extends FOSRestController
      * @Post("/user/signIn", name="api_user_signIn")
      *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function userSignInAction(Request $request)
@@ -85,15 +86,15 @@ class ApiController extends FOSRestController
 
         $dm = $this->get('doctrine_mongodb')->getManager();
 
-        /** @var User */
-        $user = $dm->getRepository('TerraGanaAppBundle:User')->findOneBy(["email" => $email]);
+        /* @var User */
+        $user = $dm->getRepository('TerraGanaAppBundle:User')->findOneBy(['email' => $email]);
 
-        if(!$user){
+        if (!$user) {
             $user = new User();
             $user->setGoogleId($googleId);
             $user->setEmail($email);
-            $user->setCreatedAt(new DateTime("now"));
-            $user->setUpdatedAt(new DateTime("now"));
+            $user->setCreatedAt(new DateTime('now'));
+            $user->setUpdatedAt(new DateTime('now'));
 
             $dm->persist($user);
             $dm->flush();
@@ -102,14 +103,14 @@ class ApiController extends FOSRestController
                 $user->getId() => [
                     'googleId' => $user->getGoogleId(),
                     'username' => $user->getUsername(),
-                    'email' => $user->getEmail(),
-                    'created' => $user->getCreatedAt(),
-                    'updated' => $user->getUpdatedAt(),
+                    'email'    => $user->getEmail(),
+                    'created'  => $user->getCreatedAt(),
+                    'updated'  => $user->getUpdatedAt(),
                 ],
-            ],201);
+            ], 201);
         } else {
-            if($user->getId() == $id){
-                $user->setUpdatedAt(new DateTime("now"));
+            if ($user->getId() == $id) {
+                $user->setUpdatedAt(new DateTime('now'));
 
                 $dm->persist($user);
                 $dm->flush();
@@ -118,13 +119,13 @@ class ApiController extends FOSRestController
                     $user->getId() => [
                         'googleId' => $user->getGoogleId(),
                         'username' => $user->getUsername(),
-                        'email' => $user->getEmail(),
-                        'created' => $user->getCreatedAt(),
-                        'updated' => $user->getUpdatedAt(),
+                        'email'    => $user->getEmail(),
+                        'created'  => $user->getCreatedAt(),
+                        'updated'  => $user->getUpdatedAt(),
                     ],
-                ],200);
-            } elseif($user->getGoogleId() == $googleId){
-                $user->setUpdatedAt(new DateTime("now"));
+                ], 200);
+            } elseif ($user->getGoogleId() == $googleId) {
+                $user->setUpdatedAt(new DateTime('now'));
 
                 $dm->persist($user);
                 $dm->flush();
@@ -133,25 +134,26 @@ class ApiController extends FOSRestController
                     $user->getId() => [
                         'googleId' => $user->getGoogleId(),
                         'username' => $user->getUsername(),
-                        'email' => $user->getEmail(),
-                        'created' => $user->getCreatedAt(),
-                        'updated' => $user->getUpdatedAt(),
+                        'email'    => $user->getEmail(),
+                        'created'  => $user->getCreatedAt(),
+                        'updated'  => $user->getUpdatedAt(),
                     ],
-                ],200);
+                ], 200);
             } else {
-                return new JsonResponse([],404);
+                return new JsonResponse([], 404);
             }
         }
     }
 
     /**
-     * Delete an existing User
+     * Delete an existing User.
      *
      * @ApiDoc(section="user",resource=true,description="Delete User",tags={"demo" = "#000000", "testing" = "#ff0000"})
      *
      * @Delete("/user/delete/{id}", name="api_user_delete")
      *
      * @param $id
+     *
      * @return JsonResponse
      */
     public function userDeleteAction($id)
@@ -159,25 +161,25 @@ class ApiController extends FOSRestController
         $dm = $this->get('doctrine_mongodb')->getManager();
         $user = $dm->getRepository('TerraGanaAppBundle:User')->find($id);
 
-        if(!$user){
+        if (!$user) {
             return new JsonResponse([
                 'message' => 'User not found',
-            ],404);
+            ], 404);
         } else {
-            $user->setUpdatedAt(new DateTime("now"));
-            $user->setDeletedAt(new DateTime("now"));
-            $user->getDeletedAt(); # For CoverageTest Only
+            $user->setUpdatedAt(new DateTime('now'));
+            $user->setDeletedAt(new DateTime('now'));
+            $user->getDeletedAt(); // For CoverageTest Only
             $dm->remove($user);
             $dm->flush();
 
             return new JsonResponse([
                 'message' => 'User deleted',
-            ],200);
+            ], 200);
         }
     }
 
     /**
-     * Edit user data
+     * Edit user data.
      *
      * @ApiDoc(section="user",resource=true,description="Edit user",tags={"demo" = "#000000", "testing" = "#ff0000"},
      *  parameters={
@@ -191,6 +193,7 @@ class ApiController extends FOSRestController
      *
      * @param Request $request
      * @param $id
+     *
      * @return JsonResponse
      */
     public function userEditAction(Request $request, $id)
@@ -202,34 +205,35 @@ class ApiController extends FOSRestController
 
         $dm = $this->get('doctrine_mongodb')->getManager();
 
-        /** @var User */
+        /* @var User */
         $user = $dm->getRepository('TerraGanaAppBundle:User')->find($id);
 
-        if($user){
-            if($googleId) {
+        if ($user) {
+            if ($googleId) {
                 $user->setGoogleId($googleId);
             }
-            if($email) {
+            if ($email) {
                 $user->setEmail($email);
             }
-            if($username) {
+            if ($username) {
                 $user->setUsername($username);
             }
-            $user->setUpdatedAt(new DateTime("now"));
+            $user->setUpdatedAt(new DateTime('now'));
 
             $dm->persist($user);
             $dm->flush();
+
             return new JsonResponse([
                 $user->getId() => [
                     'googleId' => $user->getGoogleId(),
                     'username' => $user->getUsername(),
-                    'email' => $user->getEmail(),
-                    'created' => $user->getCreatedAt(),
-                    'updated' => $user->getUpdatedAt(),
+                    'email'    => $user->getEmail(),
+                    'created'  => $user->getCreatedAt(),
+                    'updated'  => $user->getUpdatedAt(),
                 ],
-            ],200);
+            ], 200);
         } else {
-            return new JsonResponse([],404);
+            return new JsonResponse([], 404);
         }
     }
 
