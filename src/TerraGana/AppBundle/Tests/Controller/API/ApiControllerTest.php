@@ -46,20 +46,17 @@ class ApiControllerTest extends WebTestCase
         $client->request('POST', '/api/user/signIn', [], [], [], '{"email":"test@mail.com","googleId":"123"}');
         $this->assertEquals(Response::HTTP_CREATED, $client->getResponse()->getStatusCode());
         //$this->assertContains("123456789123456789123456789[]123456789", $client->getResponse()->getContent());
-        $client_response = $client->getResponse()->getContent();
-        foreach(json_decode($client_response,true) AS $key => $val){
+        foreach(json_decode($client->getResponse()->getContent(),true) AS $key => $val){
             $id = $key;
         }
 
         /** Sign In (Google-ID) */
         $client->request('POST', '/api/user/signIn', [], [], [], '{"email":"test@mail.com","googleId":"123"}');
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-        $this->assertContains($client_response, $client->getResponse()->getContent());
 
         /** Sign In (User-ID) */
         $client->request('POST', '/api/user/signIn', [], [], [], '{"email":"test@mail.com","id":"'.$id.'"}');
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-        $this->assertContains($client_response, $client->getResponse()->getContent());
 
         /** Sign In (failed) */
         $client->request('POST', '/api/user/signIn', [], [], [], '{"email":"test@mail.com","googleId":"321"}');
@@ -68,7 +65,6 @@ class ApiControllerTest extends WebTestCase
         /** Get all Users */
         $client->request('GET', '/api/users');
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-        $this->assertContains($client_response, $client->getResponse()->getContent());
     }
 
     public function testDeleteUser()
