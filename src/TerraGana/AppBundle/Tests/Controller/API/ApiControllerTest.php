@@ -46,7 +46,7 @@ class ApiControllerTest extends WebTestCase
         $client->request('POST', '/api/user/signIn', [], [], [], '{"email":"test@mail.com","googleId":"123"}');
         $this->assertEquals(Response::HTTP_CREATED, $client->getResponse()->getStatusCode());
         $client_response = $client->getResponse()->getContent();
-        foreach(json_decode($client_response, true) as $key => $val) {
+        foreach (json_decode($client_response, true) as $key => $val) {
             $id = $key;
         }
 
