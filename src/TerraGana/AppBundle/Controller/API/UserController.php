@@ -37,6 +37,7 @@ class UserController extends FOSRestController
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $users = $dm->getRepository('TerraGanaAppBundle:User')->findAll();
+
         return new JsonResponse($users);
     }
 
@@ -75,12 +76,14 @@ class UserController extends FOSRestController
             $user->setCreatedAt(new DateTime('now'));
             $dm->persist($user);
             $dm->flush();
+
             return new JsonResponse($user, 201);
         } else {
             if ($user->getId() == $json->id || $user->getGoogleId() == $json->googleId) {
                 $user = $this->updateUser($user, $json);
                 $dm->persist($user);
                 $dm->flush();
+
                 return new JsonResponse($user, 200);
             } else {
                 return new JsonResponse([], 404);
@@ -117,6 +120,7 @@ class UserController extends FOSRestController
             $this->updateUser($user, $json);
             $dm->persist($user);
             $dm->flush();
+
             return new JsonResponse($user, 200);
         } else {
             return new JsonResponse([], 404);
@@ -148,17 +152,20 @@ class UserController extends FOSRestController
             $user->getDeletedAt(); // For CoverageTest Only
             $dm->remove($user);
             $dm->flush();
+
             return new JsonResponse([], 204);
         }
     }
 
-    private function convertJson($json){
+    private function convertJson($json)
+    {
         $return_json = [];
         $json = json_decode($json);
         $return_json['id'] = (isset($json->id) ? $json->id : null);
         $return_json['googleId'] = (isset($json->googleId) ? $json->googleId : null);
         $return_json['username'] = (isset($json->username) ? $json->username : null);
         $return_json['email'] = (isset($json->email) ? $json->email : null);
+
         return json_decode(json_encode($return_json));
     }
 
@@ -168,6 +175,7 @@ class UserController extends FOSRestController
         (isset($json->username) ? $user->setUsername($json->username) : $user->setUsername($user->getUsername()));
         (isset($json->email) ? $user->setEmail($json->email) : $user->setEmail($user->getEmail()));
         $user->setUpdatedAt(new DateTime('now'));
+
         return $user;
     }
 }
