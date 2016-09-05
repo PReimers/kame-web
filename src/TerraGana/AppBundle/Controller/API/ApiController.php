@@ -134,6 +134,21 @@ class ApiController extends FOSRestController
         }
     }
 
+    public function updateUser(User &$user, $json)
+    {
+        if (isset($json->googleId)) {
+            $user->setGoogleId($json->googleId);
+        }
+        if (isset($json->email)) {
+            $user->setEmail($json->email);
+        }
+        if (isset($json->username)) {
+            $user->setUsername($json->username);
+        }
+
+        $user->setUpdatedAt(new DateTime('now'));
+    }
+
     /**
      * Edit user data.
      *
@@ -161,16 +176,7 @@ class ApiController extends FOSRestController
         $user = $dm->getRepository('TerraGanaAppBundle:User')->find($id);
 
         if ($user) {
-            if (isset($json->googleId)) {
-                $user->setGoogleId($json->googleId);
-            }
-            if (isset($json->email)) {
-                $user->setEmail($json->email);
-            }
-            if (isset($json->username)) {
-                $user->setUsername($json->username);
-            }
-            $user->setUpdatedAt(new DateTime('now'));
+            $this->updateUser($user,$json);
 
             $dm->persist($user);
             $dm->flush();
