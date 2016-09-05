@@ -199,24 +199,20 @@ class ApiController extends FOSRestController
     public function userEditAction(Request $request, $id)
     {
         $json = json_decode($request->getContent());
-        $email = (isset($json->email) ? $json->email : null);
-        $googleId = (isset($json->googleId) ? $json->googleId : null);
-        $username = (isset($json->username) ? $json->username : null);
-
         $dm = $this->get('doctrine_mongodb')->getManager();
 
         /* @var User */
         $user = $dm->getRepository('TerraGanaAppBundle:User')->find($id);
 
         if ($user) {
-            if ($googleId) {
-                $user->setGoogleId($googleId);
+            if (isset($json->googleId)) {
+                $user->setGoogleId($json->googleId);
             }
-            if ($email) {
-                $user->setEmail($email);
+            if (isset($json->email)) {
+                $user->setEmail($json->email);
             }
-            if ($username) {
-                $user->setUsername($username);
+            if (isset($json->username)) {
+                $user->setUsername($json->username);
             }
             $user->setUpdatedAt(new DateTime('now'));
 
