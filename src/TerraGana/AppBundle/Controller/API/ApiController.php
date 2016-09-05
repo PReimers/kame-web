@@ -109,22 +109,7 @@ class ApiController extends FOSRestController
                 ],
             ], 201);
         } else {
-            if ($user->getId() == $id) {
-                $user->setUpdatedAt(new DateTime('now'));
-
-                $dm->persist($user);
-                $dm->flush();
-
-                return new JsonResponse([
-                    $user->getId() => [
-                        'googleId' => $user->getGoogleId(),
-                        'username' => $user->getUsername(),
-                        'email'    => $user->getEmail(),
-                        'created'  => $user->getCreatedAt(),
-                        'updated'  => $user->getUpdatedAt(),
-                    ],
-                ], 200);
-            } elseif ($user->getGoogleId() == $googleId) {
+            if ($user->getId() == $id || $user->getGoogleId() == $googleId) {
                 $user->setUpdatedAt(new DateTime('now'));
 
                 $dm->persist($user);
