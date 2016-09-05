@@ -62,7 +62,7 @@ class ApiControllerTest extends WebTestCase
         $this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
 
         /* Get all Users */
-        $client->request('GET', '/api/users');
+        $client->request('GET', '/api/user/all');
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 
@@ -96,6 +96,7 @@ class ApiControllerTest extends WebTestCase
         /* Sign In */
         $client->request('POST', '/api/user/signIn', [], [], [], '{"email":"test@mail.com","googleId":"123"}');
         $this->assertTrue(in_array($client->getResponse()->getStatusCode(), [Response::HTTP_OK, Response::HTTP_CREATED]));
+        $i = 1;
         foreach (json_decode($client->getResponse()->getContent(), true) as $key => $val) {
             $id = $key;
         }
