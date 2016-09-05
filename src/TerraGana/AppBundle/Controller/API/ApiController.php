@@ -40,18 +40,7 @@ class ApiController extends FOSRestController
         $dm = $this->get('doctrine_mongodb')->getManager();
         $users = $dm->getRepository('TerraGanaAppBundle:User')->findAll();
 
-        $user_array = [];
-        foreach ($users as $user) {
-            $user_array[$user->getId()] = [
-                'googleId' => $user->getGoogleId(),
-                'username' => $user->getUsername(),
-                'email'    => $user->getEmail(),
-                'created'  => $user->getCreatedAt(),
-                'updated'  => $user->getUpdatedAt(),
-            ];
-        }
-
-        return new JsonResponse($user_array);
+        return new JsonResponse($users);
     }
 
     /**
@@ -99,15 +88,7 @@ class ApiController extends FOSRestController
             $dm->persist($user);
             $dm->flush();
 
-            return new JsonResponse([
-                $user->getId() => [
-                    'googleId' => $user->getGoogleId(),
-                    'username' => $user->getUsername(),
-                    'email'    => $user->getEmail(),
-                    'created'  => $user->getCreatedAt(),
-                    'updated'  => $user->getUpdatedAt(),
-                ],
-            ], 201);
+            return new JsonResponse($user, 201);
         } else {
             if ($user->getId() == $id || $user->getGoogleId() == $googleId) {
                 $user->setUpdatedAt(new DateTime('now'));
@@ -115,15 +96,7 @@ class ApiController extends FOSRestController
                 $dm->persist($user);
                 $dm->flush();
 
-                return new JsonResponse([
-                    $user->getId() => [
-                        'googleId' => $user->getGoogleId(),
-                        'username' => $user->getUsername(),
-                        'email'    => $user->getEmail(),
-                        'created'  => $user->getCreatedAt(),
-                        'updated'  => $user->getUpdatedAt(),
-                    ],
-                ], 200);
+                return new JsonResponse($user, 200);
             } else {
                 return new JsonResponse([], 404);
             }
@@ -157,9 +130,7 @@ class ApiController extends FOSRestController
             $dm->remove($user);
             $dm->flush();
 
-            return new JsonResponse([
-                'message' => 'User deleted',
-            ], 200);
+            return new JsonResponse([], 204);
         }
     }
 
@@ -204,15 +175,7 @@ class ApiController extends FOSRestController
             $dm->persist($user);
             $dm->flush();
 
-            return new JsonResponse([
-                $user->getId() => [
-                    'googleId' => $user->getGoogleId(),
-                    'username' => $user->getUsername(),
-                    'email'    => $user->getEmail(),
-                    'created'  => $user->getCreatedAt(),
-                    'updated'  => $user->getUpdatedAt(),
-                ],
-            ], 200);
+            return new JsonResponse($user, 200);
         } else {
             return new JsonResponse([], 404);
         }

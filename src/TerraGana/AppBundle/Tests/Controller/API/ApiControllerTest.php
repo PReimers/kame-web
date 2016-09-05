@@ -80,8 +80,7 @@ class ApiControllerTest extends WebTestCase
 
         /* Delete User */
         $client->request('DELETE', '/api/user/delete/'.$id);
-        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-        $this->assertContains('{"message":"User deleted"}', $client->getResponse()->getContent());
+        $this->assertEquals(Response::HTTP_NO_CONTENT, $client->getResponse()->getStatusCode());
 
         /* Delete User (failed) */
         $client->request('DELETE', '/api/user/delete/abc123');

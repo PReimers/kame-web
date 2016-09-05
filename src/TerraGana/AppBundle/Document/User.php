@@ -12,7 +12,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document(repositoryClass="TerraGana\AppBundle\Repository\UserRepository")
  */
-class User
+class User implements \JsonSerializable
 {
     /**
      * @MongoDB\Id
@@ -201,5 +201,25 @@ class User
     public function getDeletedAt()
     {
         return $this->deletedAt;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    function jsonSerialize()
+    {
+        return [
+            $this->getId() => [
+                'googleId' => $this->getGoogleId(),
+                'username' => $this->getUsername(),
+                'email'    => $this->getEmail(),
+                'created'  => $this->getCreatedAt(),
+                'updated'  => $this->getUpdatedAt(),
+            ]
+        ];
     }
 }

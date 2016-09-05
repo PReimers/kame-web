@@ -33,3 +33,5 @@ cache:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - travis_retry php vendor/bin/coveralls -v
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover -n build/logs/clover.xml
