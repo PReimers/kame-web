@@ -176,7 +176,7 @@ class ApiController extends FOSRestController
         $user = $dm->getRepository('TerraGanaAppBundle:User')->find($id);
 
         if ($user) {
-            $this->updateUser($user,$json);
+            $this->updateUser($user, $json);
 
             $dm->persist($user);
             $dm->flush();
