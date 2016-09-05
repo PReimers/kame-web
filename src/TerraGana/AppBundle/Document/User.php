@@ -134,7 +134,7 @@ class User
     /**
      * Set createdAt.
      *
-     * @param date $createdAt
+     * @param \DateTime $createdAt
      *
      * @return $this
      */
@@ -148,7 +148,7 @@ class User
     /**
      * Get createdAt.
      *
-     * @return date $createdAt
+     * @return \DateTime $createdAt
      */
     public function getCreatedAt()
     {
@@ -158,7 +158,7 @@ class User
     /**
      * Set updatedAt.
      *
-     * @param date $updatedAt
+     * @param \DateTime $updatedAt
      *
      * @return $this
      */
@@ -172,7 +172,7 @@ class User
     /**
      * Get updatedAt.
      *
-     * @return date $updatedAt
+     * @return \DateTime $updatedAt
      */
     public function getUpdatedAt()
     {
@@ -182,7 +182,7 @@ class User
     /**
      * Set deletedAt.
      *
-     * @param date $deletedAt
+     * @param \DateTime $deletedAt
      *
      * @return $this
      */
@@ -196,7 +196,7 @@ class User
     /**
      * Get deletedAt.
      *
-     * @return date $deletedAt
+     * @return \DateTime $deletedAt
      */
     public function getDeletedAt()
     {

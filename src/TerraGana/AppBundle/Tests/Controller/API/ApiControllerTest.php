@@ -5,7 +5,6 @@ namespace TerraGana\AppBundle\Tests\Controller\API;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\StringInput;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiControllerTest extends WebTestCase
