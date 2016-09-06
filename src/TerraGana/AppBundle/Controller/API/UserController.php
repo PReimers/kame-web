@@ -78,17 +78,17 @@ class UserController extends FOSRestController
             $dm->flush();
 
             return new JsonResponse($user, 201);
-        } else {
-            if ($user->getId() == $json->id || $user->getGoogleId() == $json->googleId) {
-                $user = $this->updateUser($user, $json);
-                $dm->persist($user);
-                $dm->flush();
-
-                return new JsonResponse($user, 200);
-            } else {
-                return new JsonResponse([], 404);
-            }
         }
+
+        if ($user->getId() === $json->id || $user->getGoogleId() === $json->googleId) {
+            $user = $this->updateUser($user, $json);
+            $dm->persist($user);
+            $dm->flush();
+
+            return new JsonResponse($user, 200);
+        }
+        
+        return new JsonResponse([], 404);
     }
 
     /**
