@@ -87,7 +87,7 @@ class UserController extends FOSRestController
 
             return new JsonResponse($user, 200);
         }
-        
+
         return new JsonResponse([], 404);
     }
 
@@ -161,12 +161,25 @@ class UserController extends FOSRestController
     {
         $return_json = [];
         $json = json_decode($json);
-        $return_json['id'] = (isset($json->id) ? $json->id : null);
-        $return_json['googleId'] = (isset($json->googleId) ? $json->googleId : null);
-        $return_json['username'] = (isset($json->username) ? $json->username : null);
-        $return_json['email'] = (isset($json->email) ? $json->email : null);
+        $return_json['id'] = $this->getValidValue($json->id);
+        $return_json['googleId'] = $this->getValidValue($json->googleId);
+        $return_json['username'] = $this->getValidValue($json->username);
+        $return_json['email'] = $this->getValidValue($json->email);
 
         return json_decode(json_encode($return_json));
+    }
+
+    /**
+     * Helper function for converJson
+     *
+     * @param $value
+     * @param $default
+     *
+     * @return mixed
+     */
+    private function getValidValue($value, $default = null)
+    {
+        return isset($value) ? $value : $default;
     }
 
     public function updateUser(User $user, $json)
