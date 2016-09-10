@@ -161,10 +161,10 @@ class UserController extends FOSRestController
     {
         $return_json = [];
         $json = json_decode($json);
-        $return_json['id'] = $this->validateValue([$json,'id']);
-        $return_json['googleId'] = $this->validateValue([$json,'googleId']);
-        $return_json['username'] = $this->validateValue([$json,'username']);
-        $return_json['email'] = $this->validateValue([$json,'email']);
+        $return_json['id'] = $this->validateValue([$json, 'id']);
+        $return_json['googleId'] = $this->validateValue([$json, 'googleId']);
+        $return_json['username'] = $this->validateValue([$json, 'username']);
+        $return_json['email'] = $this->validateValue([$json, 'email']);
 
         return json_decode(json_encode($return_json));
     }
@@ -179,8 +179,8 @@ class UserController extends FOSRestController
      */
     private function validateValue($value, $default = null)
     {
-        if(is_array($value) && count($value) == 2){
-            $value = property_exists($value[0],$value[1]) ? $value[0]->{$value[1]} : null;
+        if (is_array($value) && count($value) == 2) {
+            $value = property_exists($value[0], $value[1]) ? $value[0]->{$value[1]} : null;
         }
         return isset($value) ? $value : $default;
     }
