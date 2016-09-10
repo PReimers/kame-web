@@ -2,9 +2,9 @@
 
 namespace TerraGana\AppBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use TerraGana\AppBundle\Tests\PrepareWebTestCase;
 
-class DefaultControllerTest extends WebTestCase
+class DefaultControllerTest extends PrepareWebTestCase
 {
     public function testIndex()
     {

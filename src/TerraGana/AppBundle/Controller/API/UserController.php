@@ -16,6 +16,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use TerraGana\AppBundle\Document\User;
+use TerraGana\AppBundle\Helper\UserHelper;
 
 /**
  * Class ApiController.
@@ -65,14 +66,15 @@ class UserController extends FOSRestController
      */
     public function signInAction(Request $request)
     {
-        $json = $this->convertJson($request->getContent());
+        $userHelper = new UserHelper();
+        $json = $userHelper->convertJson($request->getContent());
         $dm = $this->get('doctrine_mongodb')->getManager();
         /* @var User */
         $user = $dm->getRepository('TerraGanaAppBundle:User')->findOneBy(['email' => $json->email]);
 
         if (!$user) {
             $user = new User();
-            $user = $this->updateUser($user, $json);
+            $user = $userHelper->updateUser($user, $json);
             $user->setCreatedAt(new DateTime('now'));
             $dm->persist($user);
             $dm->flush();
@@ -81,7 +83,7 @@ class UserController extends FOSRestController
         }
 
         if ($user->getId() === $json->id || $user->getGoogleId() === $json->googleId) {
-            $user = $this->updateUser($user, $json);
+            $user = $userHelper->updateUser($user, $json);
             $dm->persist($user);
             $dm->flush();
 
@@ -111,13 +113,14 @@ class UserController extends FOSRestController
      */
     public function userEditAction(Request $request, $id)
     {
-        $json = $this->convertJson($request->getContent());
+        $userHelper = new UserHelper();
+        $json = $userHelper->convertJson($request->getContent());
         $dm = $this->get('doctrine_mongodb')->getManager();
         /* @var User */
         $user = $dm->getRepository('TerraGanaAppBundle:User')->find($id);
 
         if ($user) {
-            $this->updateUser($user, $json);
+            $userHelper->updateUser($user, $json);
             $dm->persist($user);
             $dm->flush();
 
@@ -155,52 +158,5 @@ class UserController extends FOSRestController
 
             return new JsonResponse([], 204);
         }
-    }
-
-    private function convertJson($json)
-    {
-        $return_json = [];
-        $json = json_decode($json);
-        $return_json['id'] = $this->validateValue([$json, 'id']);
-        $return_json['googleId'] = $this->validateValue([$json, 'googleId']);
-        $return_json['username'] = $this->validateValue([$json, 'username']);
-        $return_json['email'] = $this->validateValue([$json, 'email']);
-
-        return json_decode(json_encode($return_json));
-    }
-
-    /**
-     * Helper function to validate the Value.
-     *
-     * @param $value
-     * @param $default
-     *
-     * @return mixed
-     */
-    private function validateValue($value, $default = null)
-    {
-        if (is_array($value) && count($value) == 2) {
-            $value = property_exists($value[0], $value[1]) ? $value[0]->{$value[1]} : null;
-        }
-
-        return isset($value) ? $value : $default;
-    }
-
-    /**
-     * update user attributes.
-     *
-     * @param User $user
-     * @param $json
-     *
-     * @return User
-     */
-    public function updateUser(User $user, $json)
-    {
-        (isset($json->googleId) ? $user->setGoogleId($json->googleId) : $user->setGoogleId($user->getGoogleId()));
-        (isset($json->username) ? $user->setUsername($json->username) : $user->setUsername($user->getUsername()));
-        (isset($json->email) ? $user->setEmail($json->email) : $user->setEmail($user->getEmail()));
-        $user->setUpdatedAt(new DateTime('now'));
-
-        return $user;
     }
 }
