@@ -29,9 +29,11 @@ cache:
   directories:
   - vendor
 
-after_script:
-  - cat var/logs/test.log
+after_success:
   - bash <(curl -s https://codecov.io/bash)
   - travis_retry php vendor/bin/coveralls -v
+
+after_script:
+  - cat var/logs/test.log
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover -n build/logs/clover.xml
