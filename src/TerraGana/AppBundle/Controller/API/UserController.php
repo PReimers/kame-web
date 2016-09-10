@@ -182,6 +182,7 @@ class UserController extends FOSRestController
         if (is_array($value) && count($value) == 2) {
             $value = property_exists($value[0], $value[1]) ? $value[0]->{$value[1]} : null;
         }
+
         return isset($value) ? $value : $default;
     }
 
