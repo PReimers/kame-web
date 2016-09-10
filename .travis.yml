@@ -29,7 +29,8 @@ cache:
   directories:
   - vendor
 
-after_success:
+after_script:
+  - cat var/logs/test.log
   - bash <(curl -s https://codecov.io/bash)
   - travis_retry php vendor/bin/coveralls -v
   - wget https://scrutinizer-ci.com/ocular.phar
