@@ -161,27 +161,34 @@ class UserController extends FOSRestController
     {
         $return_json = [];
         $json = json_decode($json);
-        $return_json['id'] = $this->getValidValue($json->id);
-        $return_json['googleId'] = $this->getValidValue($json->googleId);
-        $return_json['username'] = $this->getValidValue($json->username);
-        $return_json['email'] = $this->getValidValue($json->email);
+        $return_json['id'] = $this->validateValue($json->id);
+        $return_json['googleId'] = $this->validateValue($json->googleId);
+        $return_json['username'] = $this->validateValue($json->username);
+        $return_json['email'] = $this->validateValue($json->email);
 
         return json_decode(json_encode($return_json));
     }
 
     /**
-     * Helper function for converJson
+     * Helper function to validate the Value.
      *
      * @param $value
      * @param $default
      *
      * @return mixed
      */
-    private function getValidValue($value, $default = null)
+    private function validateValue($value, $default = null)
     {
-        return isset($value) ? $value : $default;
+        return (isset($value) ? $value : $default);
     }
 
+    /**
+     * Set
+     *
+     * @param User $user
+     * @param $json
+     * @return User
+     */
     public function updateUser(User $user, $json)
     {
         (isset($json->googleId) ? $user->setGoogleId($json->googleId) : $user->setGoogleId($user->getGoogleId()));
