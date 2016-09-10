@@ -12,7 +12,6 @@ env:
   - SYMFONY_VERSION="3.1.*" DB=mongodb
 
 before_script:
-  - mongo kame --eval 'db.addUser("kame", "secret");'
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - mkdir -p build/logs
 
