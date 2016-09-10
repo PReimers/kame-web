@@ -8,11 +8,10 @@ use TerraGana\AppBundle\Tests\PrepareWebTestCase;
 
 class UserHelperTest extends PrepareWebTestCase
 {
-
     public function testConvertJson()
     {
-        $json = json_encode(['test'=>true,'username'=>'Test']);
-        $returnedJson = json_encode(['id'=>null, 'googleId'=>null, 'username'=>'Test', 'email'=>null]);
+        $json = json_encode(['test' => true, 'username' => 'Test']);
+        $returnedJson = json_encode(['id' => null, 'googleId' => null, 'username' => 'Test', 'email' => null]);
 
         $userHelper = new UserHelper($json);
 
@@ -23,7 +22,7 @@ class UserHelperTest extends PrepareWebTestCase
     {
         $user = new User();
 
-        $json = json_encode(['googleId'=>'123', 'username'=>'Test']);
+        $json = json_encode(['googleId' => '123', 'username' => 'Test']);
 
         $userHelper = new UserHelper($json);
         $updatedUser = $userHelper->updateUser($user, $json);
@@ -32,5 +31,4 @@ class UserHelperTest extends PrepareWebTestCase
         $this->assertEquals($user->getUsername(), $updatedUser->getUsername());
         $this->assertNotNull($updatedUser->getUpdatedAt());
     }
-
 }

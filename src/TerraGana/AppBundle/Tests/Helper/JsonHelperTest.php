@@ -7,10 +7,9 @@ use TerraGana\AppBundle\Tests\PrepareWebTestCase;
 
 class JsonHelperTest extends PrepareWebTestCase
 {
-
     public function testEncodedJson()
     {
-        $json = json_encode(['test'=>true,'type'=>'encoded']);
+        $json = json_encode(['test' => true, 'type' => 'encoded']);
 
         $jsonHelper = new JsonHelper($json);
 
@@ -24,12 +23,11 @@ class JsonHelperTest extends PrepareWebTestCase
 
     public function testDecodedJson()
     {
-        $json = json_decode(json_encode(['test'=>true,'type'=>'decoded']));
+        $json = json_decode(json_encode(['test' => true, 'type' => 'decoded']));
 
         $jsonHelper = new JsonHelper();
         $jsonHelper->setJson($json, false);
 
         $this->assertEquals($json, $jsonHelper->getJson());
     }
-
 }
