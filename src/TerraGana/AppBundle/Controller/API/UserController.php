@@ -10,7 +10,6 @@ use DateTime;
 use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
-use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -161,10 +160,10 @@ class UserController extends FOSRestController
     {
         $return_json = [];
         $json = json_decode($json);
-        $return_json['id'] = $this->validateValue($json->id);
-        $return_json['googleId'] = $this->validateValue($json->googleId);
-        $return_json['username'] = $this->validateValue($json->username);
-        $return_json['email'] = $this->validateValue($json->email);
+        $return_json['id'] = $this->validateValue([$json,'id']);
+        $return_json['googleId'] = $this->validateValue([$json,'googleId']);
+        $return_json['username'] = $this->validateValue([$json,'username']);
+        $return_json['email'] = $this->validateValue([$json,'email']);
 
         return json_decode(json_encode($return_json));
     }
@@ -179,6 +178,9 @@ class UserController extends FOSRestController
      */
     private function validateValue($value, $default = null)
     {
+        if(is_array($value) && count($value) == 2){
+            $value = $value[0]->$value[1];
+        }
         return isset($value) ? $value : $default;
     }
 
