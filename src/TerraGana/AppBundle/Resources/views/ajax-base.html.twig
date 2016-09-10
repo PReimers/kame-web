@@ -1,3 +1,6 @@
 {% spaceless %}
-    {"title": "{% block title %}{% endblock %}","content": {% filter json_encode|raw %}{% block body %}{% endblock %}{% endfilter %}}
+    {
+        "title": "{% block title %}{% endblock %}",
+        "content": {% filter json_encode|raw %}{% block body %}{% endblock %}{% endfilter %}
+    }
 {% endspaceless %}
