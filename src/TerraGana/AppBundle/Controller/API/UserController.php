@@ -180,7 +180,7 @@ class UserController extends FOSRestController
     private function validateValue($value, $default = null)
     {
         if(is_array($value) && count($value) == 2){
-            $value = $value[0]->$value[1];
+            $value = $value[0]->{$value[1]};
         }
         return isset($value) ? $value : $default;
     }
