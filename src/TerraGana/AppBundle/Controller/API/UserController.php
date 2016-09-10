@@ -179,11 +179,11 @@ class UserController extends FOSRestController
      */
     private function validateValue($value, $default = null)
     {
-        return (isset($value) ? $value : $default);
+        return isset($value) ? $value : $default;
     }
 
     /**
-     * Set
+     * update user attributes.
      *
      * @param User $user
      * @param $json
