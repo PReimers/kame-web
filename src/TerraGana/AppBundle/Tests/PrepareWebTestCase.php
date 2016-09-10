@@ -3,9 +3,8 @@
  * Created by PhpStorm.
  * User: Patrick
  * Date: 10.09.2016
- * Time: 20:40
+ * Time: 20:40.
  */
-
 namespace TerraGana\AppBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -40,6 +39,4 @@ class PrepareWebTestCase extends WebTestCase
 
         return self::$application;
     }
-
-
 }

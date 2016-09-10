@@ -3,11 +3,9 @@
  * Created by PhpStorm.
  * User: Patrick
  * Date: 10.09.2016
- * Time: 19:50
+ * Time: 19:50.
  */
-
 namespace TerraGana\AppBundle\Helper;
-
 
 class JsonHelper
 {
