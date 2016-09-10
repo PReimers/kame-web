@@ -187,7 +187,7 @@ class UserController extends FOSRestController
      *
      * @param User $user
      * @param $json
-     * 
+     *
      * @return User
      */
     public function updateUser(User $user, $json)
