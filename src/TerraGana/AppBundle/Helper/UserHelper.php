@@ -28,11 +28,11 @@ class UserHelper
      * update user attributes.
      *
      * @param User $user
-     * @param Object $json
+     * @param object $json
      *
      * @return User
      */
-    public function updateUser(User $user, Object $json)
+    public function updateUser(User $user, object $json)
     {
         (isset($json->googleId) ? $user->setGoogleId($json->googleId) : $user->setGoogleId($user->getGoogleId()));
         (isset($json->username) ? $user->setUsername($json->username) : $user->setUsername($user->getUsername()));
