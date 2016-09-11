@@ -59,17 +59,12 @@ a, a:hover {
   display: flex;
   flex-direction: column;
   align-items: stretch; }
-  .demo-graphs .demo-graph {
-    width: 100%; }
-    .demo-graphs .demo-graph:nth-child(1) {
-      color: #00b9d8; }
-    .demo-graphs .demo-graph:nth-child(2) {
-      color: #d9006e; }
-
-/* TODO: Find a proper solution to have the graphs
- * not float around outside their container in IE10/11.
- * Using a browserhacks.com solution for now.
- */
+.demo-graphs .demo-graph {
+  width: 100%; }
+.demo-graphs .demo-graph:nth-child(1) {
+  color: #00b9d8; }
+.demo-graphs .demo-graph:nth-child(2) {
+  color: #d9006e; }
 :-ms-input-placeholder,
 :root .demo-graphs {
   min-height: 664px; }
@@ -78,7 +73,6 @@ a, a:hover {
 :root .demo-graph {
   max-height: 300px; }
 
-/* TODO end */
 .demo-cards .card {
   margin-bottom: 2rem; }
 .demo-cards .card-title {
