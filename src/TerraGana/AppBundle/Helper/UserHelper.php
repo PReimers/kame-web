@@ -27,7 +27,7 @@ class UserHelper
     /**
      * update user attributes.
      *
-     * @param User $user
+     * @param User   $user
      * @param object $json
      *
      * @return User
