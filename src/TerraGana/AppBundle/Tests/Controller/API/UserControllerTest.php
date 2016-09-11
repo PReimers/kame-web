@@ -80,5 +80,4 @@ class UserControllerTest extends PrepareWebTestCase
         $client->request('POST', '/api/user/edit/abc123', [], [], [], '{"email":"test@mail.com","googleId":"123","username":"TestUser"}');
         $this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
     }
-
 }
