@@ -24,8 +24,8 @@ class UserHelperTest extends PrepareWebTestCase
 
         $json = json_encode(['googleId' => '123', 'username' => 'Test']);
 
-        $userHelper = new UserHelper($json);
-        $updatedUser = $userHelper->updateUser($user, $json);
+        $userHelper = new UserHelper();
+        $updatedUser = $userHelper->updateUser($user, $userHelper->convertJson($json));
 
         $this->assertEquals($user->getGoogleId(), $updatedUser->getGoogleId());
         $this->assertEquals($user->getUsername(), $updatedUser->getUsername());

@@ -8,6 +8,7 @@
 namespace TerraGana\AppBundle\Helper;
 
 use DateTime;
+use stdClass;
 use TerraGana\AppBundle\Document\User;
 
 class UserHelper
@@ -28,11 +29,11 @@ class UserHelper
      * update user attributes.
      *
      * @param User   $user
-     * @param object $json
+     * @param stdClass $json
      *
      * @return User
      */
-    public function updateUser(User $user, object $json)
+    public function updateUser(User $user, stdClass $json)
     {
         (isset($json->googleId) ? $user->setGoogleId($json->googleId) : $user->setGoogleId($user->getGoogleId()));
         (isset($json->username) ? $user->setUsername($json->username) : $user->setUsername($user->getUsername()));
