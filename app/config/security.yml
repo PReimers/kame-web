@@ -4,14 +4,28 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
+        api_key_user_provider:
+            id: api_key_user_provider
         in_memory:
             memory: ~
 
     firewalls:
+
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        api_login:
+            pattern: ^/api/(login|doc)
+            anonymous: ~
+
+        api:
+            pattern: ^/api
+            stateless: true
+            simple_preauth:
+                authenticator: apikey_authenticator
+            provider: api_key_user_provider
 
         main:
             anonymous: ~

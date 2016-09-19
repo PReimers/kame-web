@@ -15,6 +15,8 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Csrf\TokenGenerator\UriSafeTokenGenerator;
+use TerraGana\AppBundle\Document\Token;
 use TerraGana\AppBundle\Document\User;
 use TerraGana\AppBundle\Helper\UserHelper;
 
@@ -58,13 +60,13 @@ class UserController extends FOSRestController
      *  }
      * )
      *
-     * @Post("/signIn", name="api_user_signIn")
+     * @Post("/login", name="api_user_login")
      *
      * @param Request $request
      *
      * @return JsonResponse
      */
-    public function signInAction(Request $request)
+    public function loginAction(Request $request)
     {
         $userHelper = new UserHelper();
         $json = $userHelper->convertJson($request->getContent());
@@ -72,10 +74,18 @@ class UserController extends FOSRestController
         /* @var User */
         $user = $dm->getRepository('TerraGanaAppBundle:User')->findOneBy(['email' => $json->email]);
 
+        $myToken = new UriSafeTokenGenerator();
+
+        $token = new Token();
+        $token->setToken($myToken->generateToken());
+        $token->setCreatedAt(new DateTime('now'));
+        $token->setUpdatedAt(new DateTime('now'));
+
         if (!$user) {
             $user = new User();
             $user = $userHelper->updateUser($user, $json);
             $user->setCreatedAt(new DateTime('now'));
+            $user->setApiToken($token);
             $dm->persist($user);
             $dm->flush();
 
@@ -84,6 +94,7 @@ class UserController extends FOSRestController
 
         if ($user->getId() === $json->id || $user->getGoogleId() === $json->googleId) {
             $user = $userHelper->updateUser($user, $json);
+            $user->setApiToken($token);
             $dm->persist($user);
             $dm->flush();
 

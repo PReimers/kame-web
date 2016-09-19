@@ -2,17 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: patrick
- * Date: 04.09.16
- * Time: 22:48.
+ * Date: 19.09.16
+ * Time: 10:14.
  */
 namespace TerraGana\AppBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * @MongoDB\Document(repositoryClass="TerraGana\AppBundle\Repository\UserRepository")
+ * @MongoDB\Document()
  */
-class User implements \JsonSerializable
+class Token implements \JsonSerializable
 {
     /**
      * @MongoDB\Id
@@ -22,22 +22,7 @@ class User implements \JsonSerializable
     /**
      * @MongoDB\Field(type="string")
      */
-    protected $googleId;
-
-    /**
-     * @MongoDB\Field(type="string")
-     */
-    protected $username = null;
-
-    /**
-     * @MongoDB\Field(type="string")
-     */
-    protected $email;
-
-    /**
-     * @MongoDB\ReferenceMany(targetDocument="Token", cascade="all")
-     */
-    protected $apiToken = array();
+    protected $token;
 
     /**
      * @MongoDB\Field(type="date")
@@ -65,99 +50,27 @@ class User implements \JsonSerializable
     }
 
     /**
-     * Set googleId.
+     * Set Token.
      *
-     * @param int $googleId
+     * @param string $token
      *
      * @return $this
      */
-    public function setGoogleId($googleId)
+    public function setToken($token)
     {
-        $this->googleId = $googleId;
+        $this->token = $token;
 
         return $this;
     }
 
     /**
-     * Get googleId.
+     * Get Token.
      *
-     * @return int $googleId
+     * @return string $token
      */
-    public function getGoogleId()
+    public function getToken()
     {
-        return $this->googleId;
-    }
-
-    /**
-     * Set username.
-     *
-     * @param string $username
-     *
-     * @return $this
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Get username.
-     *
-     * @return string $username
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Set email.
-     *
-     * @param string $email
-     *
-     * @return $this
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email.
-     *
-     * @return string $email
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set apiToken.
-     *
-     * @param array $apiToken
-     *
-     * @return $this
-     */
-    public function setApiToken($apiToken)
-    {
-        $this->apiToken = $apiToken;
-
-        return $this;
-    }
-
-    /**
-     * Get apiToken.
-     *
-     * @return array $apiToken
-     */
-    public function getApiToken()
-    {
-        return $this->apiToken;
+        return $this->token;
     }
 
     /**
@@ -242,16 +155,11 @@ class User implements \JsonSerializable
      *
      * @since 5.4.0
      */
-    public function jsonSerialize()
+    function jsonSerialize()
     {
         return [
             $this->getId() => [
-                'googleId' => $this->getGoogleId(),
-                'username' => $this->getUsername(),
-                'email'    => $this->getEmail(),
-                'created'  => $this->getCreatedAt(),
-                'updated'  => $this->getUpdatedAt(),
-                'token'    => $this->getApiToken(),
+                'token'    => $this->getToken(),
             ],
         ];
     }
