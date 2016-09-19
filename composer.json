@@ -43,7 +43,7 @@
     },
     "autoload": {
         "psr-4": {
-            "": "src"
+            "TerraGana\\": "src/TerraGana/"
         },
         "classmap": [
             "app/AppKernel.php",

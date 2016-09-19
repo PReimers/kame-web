@@ -18,9 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        // Disabled because never used (SensioLabs Insight issue)
-        //$rootNode = $treeBuilder->root('kame_backend');
-        $treeBuilder->root('kame_backend');
+        $rootNode = $treeBuilder->root('kame_backend');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
