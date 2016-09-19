@@ -17,7 +17,7 @@ security:
             security: false
 
         api_login:
-            pattern: ^/api/(login|doc)
+            pattern: ^/api/(user/login|doc)
             anonymous: ~
 
         api:

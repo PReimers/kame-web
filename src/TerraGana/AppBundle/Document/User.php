@@ -160,6 +160,11 @@ class User implements \JsonSerializable
         return $this->apiToken;
     }
 
+    public function addApiToken($token)
+    {
+        $this->apiToken[] = $token;
+    }
+
     /**
      * Set createdAt.
      *
@@ -244,6 +249,12 @@ class User implements \JsonSerializable
      */
     public function jsonSerialize()
     {
+        $token = [];
+        /** @var Token */
+        foreach ($this->getApiToken() AS $t){
+            $token[] = $t->getToken();
+        }
+
         return [
             $this->getId() => [
                 'googleId' => $this->getGoogleId(),
@@ -251,7 +262,7 @@ class User implements \JsonSerializable
                 'email'    => $this->getEmail(),
                 'created'  => $this->getCreatedAt(),
                 'updated'  => $this->getUpdatedAt(),
-                'token'    => $this->getApiToken(),
+                'token'    => $token,
             ],
         ];
     }

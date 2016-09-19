@@ -80,12 +80,13 @@ class UserController extends FOSRestController
         $token->setToken($myToken->generateToken());
         $token->setCreatedAt(new DateTime('now'));
         $token->setUpdatedAt(new DateTime('now'));
+        $dm->persist($token);
 
         if (!$user) {
             $user = new User();
             $user = $userHelper->updateUser($user, $json);
             $user->setCreatedAt(new DateTime('now'));
-            $user->setApiToken($token);
+            $user->addApiToken($token);
             $dm->persist($user);
             $dm->flush();
 
@@ -94,7 +95,7 @@ class UserController extends FOSRestController
 
         if ($user->getId() === $json->id || $user->getGoogleId() === $json->googleId) {
             $user = $userHelper->updateUser($user, $json);
-            $user->setApiToken($token);
+            $user->addApiToken($token);
             $dm->persist($user);
             $dm->flush();
 
